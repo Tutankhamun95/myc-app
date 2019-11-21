@@ -12,9 +12,20 @@ class Board extends React.Component {
         }
     }
 
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+      }
+
     renderSquare(i) {
     //fills each square with an "i" value which is defined below
-      return <Square value={i} />;
+    return (
+     <Square 
+    value={this.state.squares[i]} 
+    onClick={() => this.handleClick(i)}
+    />
+    );
     }
     render() {
       const status = 'Next player: X';
@@ -49,25 +60,36 @@ class Board extends React.Component {
 
 
 //Child Component or Class called "Square", Code for each individual square//
-class Square extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          value: null,
-        };
-      }
+// class Square extends React.Component {
 
-    render() {
-      return (
-        <button className="square" 
-        onClick={() => this.setState({value: 'X'})}>
-          {this.state.value}
-        </button>
-      );
-    }
-  }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //       value: null,
+    //     };
+    //   }
+
+//     render() {
+//       return (
+//         <button className="square" 
+//         onClick={() => this.props.onClick({value: 'X'})}>
+//           {this.props.value}
+//         </button>
+//       );
+//     }
+//   }
 
 //End of individual squares code//
+
+//Square being a function component
+
+function Square(props) {
+    return (
+      <button className="square" onClick={props.onClick}>
+        {props.value}
+      </button>
+    );
+  }
   
 
 
